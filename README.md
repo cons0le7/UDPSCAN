@@ -23,12 +23,12 @@ This script can be ran in two ways:
   
 ## Example Usage:
 
-UDPSCAN.py -i 192.168.1.1 -p 123,5060
+python3 UDPSCAN.py -i 192.168.1.1 -p 123,5060
 
-UDPSCAN.py -d example.com -p 1-1024 
+python3 UDPSCAN.py -d example.com -p 1-1024 
 
-UDPSCAN.py --ip 8.8.8.8 -p 53
+python3 UDPSCAN.py --ip 8.8.8.8 -p 53
 
-UDPSCAN.py --domain example.com --timeout
+python3 UDPSCAN.py --domain example.com --timeout 2
 
-UDPSCAN.py -i 192.168.1.2 --ports 53,67,68
+python3 UDPSCAN.py -i 192.168.1.2 --ports 53,67,68 -t 3
