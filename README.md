@@ -5,7 +5,7 @@ A Python based UDP port scanner developed for use with iSH Shell. This was taken
 ```
 apk add git
 apk add python3
-git clone https://github.com/cons0le7/UDPFLOOD
-cd UDPFLOOD
-python3 UDPFLOOD.py 
+git clone https://github.com/cons0le7/UDPSCAN
+cd UDPSCAN
+python3 UDPSCAN.py 
 ```
