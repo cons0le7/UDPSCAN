@@ -15,7 +15,7 @@ python3 UDPSCAN.py
 ## Usage 
 This script can be ran in two ways: 
 
-- You can run `python3 UDPSCAN.py` and you will be prompted to input port/domain, ports and timeout in seconds.
+- You can run `python3 UDPSCAN.py` and you will be prompted to input ip/domain, ports and timeout in seconds.
 - You can also run the script with arguements in command line. The syntax for this is
 `python3 UDPSCAN.py -i/d [IP/DOMAIN] -p [PORTS] -t [TIMEOUT] `
 - You will need to use `-i`, `--ip`, `-d`, or `--domain` to specify either a target ip address or domain name.
