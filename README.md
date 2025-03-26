@@ -22,7 +22,7 @@ This script can be ran in two ways:
 - The -t or --timeout arguement is optional, timeout is in seconds and if unused it will default to 1.
 - Example Usage:
 UDPSCAN.py -i 192.168.1.1 -p 123,5060
-UDPSCAN.py -d example.com -p 1-1024 -t 2
+UDPSCAN.py -d example.com -p 1-1024 
 UDPSCAN.py --ip 8.8.8.8 -p 53
-UDPSCAN.py --domain example.com --timeout 3
+UDPSCAN.py --domain example.com --timeout
 UDPSCAN.py -i 192.168.1.2 --ports 53,67,68
