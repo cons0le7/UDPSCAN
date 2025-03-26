@@ -21,7 +21,7 @@ This script can be ran in two ways:
 - You will need to use -p or --ports to specify ports. this can be a single port, multiple ports seperated by commas eg.`1,2,3` or a port range eg.`1-1024`
 - The -t or --timeout arguement is optional, timeout is in seconds and if unused it will default to 1.
   
-- Example Usage:
+## Example Usage:
 
 UDPSCAN.py -i 192.168.1.1 -p 123,5060
 
