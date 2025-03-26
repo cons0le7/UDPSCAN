@@ -65,14 +65,14 @@ def main():
         formatter_class=argparse.RawTextHelpFormatter, 
         epilog="""
   Syntax: 
-  UPDSCAN.py -i/d [IP/DOMAIN] -p [PORTS] -t [TIMEOUT] 
+  UDPSCAN.py -i/d [IP/DOMAIN] -p [PORTS] -t [TIMEOUT] 
   
   Examples:
-  python3 UDPSCAN.py -i 192.168.1.1 -p 123,5060
-  python3 UDPSCAN.py -d example.com -p 1-1024 -t 2
-  python3 UDPSCAN.py --ip 8.8.8.8 -p 53
-  python3 UDPSCAN.py --domain example.com --timeout 3
-  python3 UDPSCAN.py -i 192.168.1.2 --ports 53,67,68 
+  UDPSCAN.py -i 192.168.1.1 -p 123,5060
+  UDPSCAN.py -d example.com -p 1-1024 -t 2
+  UDPSCAN.py --ip 8.8.8.8 -p 53
+  UDPSCAN.py --domain example.com --timeout 3
+  UDPSCAN.py -i 192.168.1.2 --ports 53,67,68 
 
 """
     )
@@ -81,8 +81,8 @@ def main():
     group.add_argument('-i', '--ip', type=str, help='IP address to scan. (eg. 1.1.1.1)')
     group.add_argument('-d', '--domain', type=str, help='Domain name to scan. (eg. website.com)')
     
-    parser.add_argument('-p', '--ports', type=str, help='Ports to scan (single, multiple comma separated (eg. 1,2,3) or range (eg. 1-1024)).')
-    parser.add_argument('-t', '--timeout', type=float, help='Timeout in seconds for each port scan (default is 1).')
+    parser.add_argument('-p', '--ports', type=str, help='Ports to scan (single, multiple comma-separated \n(eg. 1,2,3) or range (eg. 1-1024)).')
+    parser.add_argument('-t', '--timeout', type=float, help='Timeout in seconds for each port scan \n(default is 1).')
 
     args = parser.parse_args()
 
