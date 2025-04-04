@@ -1,7 +1,7 @@
 # UDPSCAN
 A Python based UDP port scanner developed for use with iSH Shell. This was taken from the [FLOOD](https://github.com/cons0le7/FLOOD) tool and modified to include command line parsed arguements for better flexibility and use with automation. It was isolated as a standalone tool due to being unable to use TCP raw sockets on iOS devices. 
 
-**Note: As of now all the tool does is ping which is rather ineffective. I am currently working on specifically crafted packets targetting common services for specific ports and will update the tool once I find success in this**
+**Note: As of now all the tool does is ping which is rather ineffective. I am currently working on specifically crafted packets targetting common services for specific ports and will update the tool once I find success in this.**
 
 ![Image](https://github.com/user-attachments/assets/252fe3f9-800f-4853-bd56-b4e787014b28)
 
