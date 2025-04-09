@@ -57,9 +57,12 @@ def parse_ports(ports_arg):
             ports.add(int(part))
     return sorted(ports)
 
+def scan(target_ip, ports_to_scan, timeout):
+    for port in ports_to_scan:
+        scan_udp_port(target_ip, port, timeout)
+
 def main():
     print_banner()
-
     parser = argparse.ArgumentParser(
         description="UDP Port Scanner.",
         formatter_class=argparse.RawTextHelpFormatter, 
@@ -76,54 +79,46 @@ def main():
 
 """
     )
-    
+
     group = parser.add_mutually_exclusive_group(required=False)
     group.add_argument('-i', '--ip', type=str, help='IP address to scan. (eg. 1.1.1.1)')
-    group.add_argument('-d', '--domain', type=str, help='Domain name to scan. (eg. website.com)')
-    
-    parser.add_argument('-p', '--ports', type=str, help='Ports to scan (single, multiple comma-separated \n(eg. 1,2,3) or range (eg. 1-1024)).')
-    parser.add_argument('-t', '--timeout', type=float, help='Timeout in seconds for each port scan \n(default is 1).')
-
+    group.add_argument('-d', '--domain', type=str, help='Domain name to scan. (eg. website.com)')    
+    parser.add_argument('-p', '--ports', type=str, help='Ports to scan (single, multiple comma-separated or range).')
+    parser.add_argument('-t', '--timeout', type=float, help='Timeout in seconds for each port scan (default is 1).')
     args = parser.parse_args()
+    
+    if args.ip or args.domain:
+        target = args.ip or args.domain
+        try:
+            target_ip = socket.gethostbyname(target)
+        except socket.gaierror:
+            print(color_red("Invalid hostname or IP address provided. Exiting."))
+            sys.exit(1)
 
-    target = args.ip or args.domain
+        ports_to_scan = args.ports and parse_ports(args.ports) or []
+        if not ports_to_scan:
+            print(color_red("No ports provided. Exiting."))
+            sys.exit(1)
 
-    if not target:
-        target = input("Enter IP address or domain name to scan: ")
-
-    try:
-        target_ip = socket.gethostbyname(target)
-    except socket.gaierror:
-        print(color_red("Invalid hostname or IP address."))
-        sys.exit()
-
-    ports_to_scan = []
-    if args.ports:
-        ports_to_scan = parse_ports(args.ports)
-    if not ports_to_scan:
-        ports_input = input("Enter ports to scan (single, comma separated or range): ")
-        ports_to_scan = parse_ports(ports_input)
-
-    if args.timeout is not None:
-        timeout = args.timeout
+        timeout = args.timeout if args.timeout is not None else 1.0
+        scan(target_ip, ports_to_scan, timeout)
     else:
-        timeout = 1.0
-        if not args.ports and args.ip is None and args.domain is None:
-            user_timeout = input("Enter timeout in seconds (default 1): ")
-            if user_timeout.strip():
-                try:
-                    timeout = float(user_timeout)
-                    if timeout <= 0:
-                        print(color_red("Timeout must be greater than 0. Defaulting to 1 second."))
-                        timeout = 1.0
-                except ValueError:
-                    print(color_red("Invalid input. Defaulting to 1 second."))
-                    timeout = 1.0
+        while True:
+            target = input("Enter IP address or domain name to scan: ")
+            try:
+                target_ip = socket.gethostbyname(target)
+            except socket.gaierror:
+                print(color_red("Invalid hostname or IP address. Please try again."))
+                continue
 
-    for port in ports_to_scan:
-        scan_udp_port(target_ip, port, timeout)
+            ports_input = input("Enter ports to scan (single, comma-separated, or range): ")
+            ports_to_scan = parse_ports(ports_input)
+            timeout = input("Enter timeout in seconds for each port scan (default 1): ")
+            timeout = float(timeout) if timeout else 1.0
 
-    print("Scan complete. Exiting...")
-    sys.exit()
+            scan(target_ip, ports_to_scan, timeout)
 
+            end_choice = input(color_green("Scan complete. New scan? (y/n): ").strip().lower())
+            if end_choice != "y":
+                break
 main()
